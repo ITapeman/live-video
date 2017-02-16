@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+	"-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+	"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="com.saas.pojo">
+
+	<class name="Comment" table="t_comment">
+		<id name="cid">
+			<generator class="native"/>
+		</id>
+		<property name="matters"/>
+		<property name="cDate"/>
+		<!-- 外键约束 -->
+		<many-to-one name="cUser" column="uid"/>
+		<many-to-one name="garden" column="ccid"></many-to-one>
+		
+	</class>
+</hibernate-mapping>

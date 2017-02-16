@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		xmlns:aop="http://www.springframework.org/schema/aop"
+		xmlns:tx="http://www.springframework.org/schema/tx"
+		xsi:schemaLocation="
+			http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+			http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.5.xsd
+			http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.5.xsd"
+			default-autowire="byType" >
+
+	<!-- 1.配置sessionFactory -->
+	<bean id="sessionFactory" class="org.springframework.orm.hibernate3.LocalSessionFactoryBean">
+		<property name="configLocation" value="classpath:hibernate.cfg.xml"/>
+	</bean>
+
+	<!-- 2.配置TransactionManager -->
+	<bean id="transactionManager" class="org.springframework.orm.hibernate3.HibernateTransactionManager"/>
+
+	<!-- 增强（事务策略） -->
+	<tx:advice id="tx_advice">
+		<tx:attributes>
+			<tx:method name="login" read-only="true"/>
+			<tx:method name="get*" read-only="true"/>
+			<tx:method name="*"/>
+		</tx:attributes>
+	</tx:advice>
+	
+	<aop:config>
+		<aop:pointcut id="tx_pc" expression="execution(* com.saas.biz.impl.*.*(..))"/>
+		<aop:advisor advice-ref="tx_advice" pointcut-ref="tx_pc"/>
+	</aop:config>
+	
+	<!-- 对DAO进行管理 -->
+	 <bean id="userDao" class="com.saas.dao.impl.UserDaoImpl"></bean>
+	 <bean id="userTagDao" class="com.saas.dao.impl.UserTagDaoImpl"></bean>
+	 <bean id="gardenDao" class="com.saas.dao.impl.GardenDaoImpl"></bean>
+	 <bean id="commentDao" class="com.saas.dao.impl.CommentDaoImpl"></bean>
+	 <bean id="videoPerSonDao" class="com.saas.dao.impl.VideoPersonDaoImpl"></bean>
+	 						   
+
+
+	<!-- 对Biz进行管理 -->
+	 <bean id="userBiz" class="com.saas.biz.impl.UserBizImpl"></bean>
+	 <bean id="userTagBiz" class="com.saas.biz.impl.UserTagBizImpl"></bean>
+	 <bean id="gardenBiz" class="com.saas.biz.impl.GardenBizImpl"></bean>
+	 <bean id="commentBiz" class="com.saas.biz.impl.CommentBizImpl"></bean>
+	 <bean id="videoPerSonBiz" class="com.saas.biz.impl.VideoPerSonBizImpl"></bean>
+ 
+
+	<!-- 对Action进行管理 -->
+	<bean id="gardeninfo" class="com.saas.action.IndexAction"></bean>
+	<bean id="gardenTime" class="com.saas.action.IndexAction"></bean>
+	<bean id="gardenhits" class="com.saas.action.IndexAction"></bean>
+	<bean id="gardenBytype" class="com.saas.action.IndexAction"></bean>
+	<bean id="searchtitle" class="com.saas.action.IndexAction"></bean>
+	<!-- <bean id="searchkeyword" class="com.saas.action.IndexAction"></bean> -->
+	<bean id="loginin" class="com.saas.action.LoginAction"></bean>
+	<bean id="postgarden" class="com.saas.action.PostGardenAction"></bean>
+	<bean id="pushURL" class="com.saas.action.CreatPushURL"></bean>
+</beans>

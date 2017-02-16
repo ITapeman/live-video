@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+	"-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+	"http://struts.apache.org/dtds/struts-2.3.dtd">
+
+<struts>
+	<constant name="struts.i18n.encoding" value="UTF-8"/>
+	<constant name="struts.custom.i18n.resources" value="mess"/>
+	<constant name="struts.mapper.alwaysSelectFullNamespace" value="true"/>
+	<constant name="struts.objectFactory" value="spring"/>
+	<constant name="struts.multipart.maxSize" value="1000000000"/>
+	<package name="saas" extends="struts-default">
+		<!-- 普通获得所有帖子 -->
+		  <action name="gardeninfo" class="com.saas.action.IndexAction" method="gardeninfo">
+		  	<result name="success" type="redirect">/index.jsp</result>
+		  </action>
+		  <!-- 时间最近 -->
+		   <action name="gardenTime" class="com.saas.action.IndexAction" method="gardenTime">
+		  	<result name="success" type="redirect">/index.jsp</result>
+		  </action>
+		  <!-- 点击最多 -->
+		   <action name="gardenhits" class="com.saas.action.IndexAction" method="gardenhits">
+		  	<result name="success" type="redirect">/index.jsp</result>
+		  </action>
+		   <!--  根据不同类型查询 -->
+		   <action name="gardenBytype" class="com.saas.action.IndexAction" method="gardenBytype">
+		  	<result name="success" type="redirect">/index.jsp</result>
+		  </action>
+		  <!-- 根据姓名模糊查询 -->
+		  <action name="searchtitle" class="com.saas.action.IndexAction" method="searchtitle">
+		  	<result name="success" type="redirect">/index.jsp</result>
+		  </action>
+		  <!-- 根据关键字查询（界面未链接，未定样式） -->
+		   <action name="searchkeyword" class="com.saas.action.IndexAction" method="searchkeyword">
+		  	<result name="success" type="redirect">/index.jsp</result>
+		  </action>
+		 <!-- 发布信息上传 -->
+		 <action name="postgarden" class="com.saas.action.PostGardenAction" method="postgarden">
+	        <interceptor-ref name="defaultStack"/>   
+		        <interceptor-ref name="fileUpload">    
+		           <!--  <param name="allowedTypes">    
+		                 image/bmp,image/png,image/gif,image/jpeg,image/jpg
+                    ,image/x-png, image/pjpeg   
+		            </param>  -->
+        		</interceptor-ref> 
+        		  <param name="maximumSize">5242880</param>
+		  	  <result name="input">/WEB-INF/wrong/error.jsp</result>   
+		  	<result name="success" type="redirect">/postgardeninfo.jsp</result>
+		  </action>
+		  
+		  <!-- 登录 -->
+		 <action name="loginin" class="com.saas.action.LoginAction" method="loginin">
+		 	<result name="success" type="redirect">/index.jsp</result>
+		 	<result name="fail" type="redirect">/login.jsp</result>
+		 </action>
+		 <!-- zhuce -->
+		 <action name="register_*" class="com.saas.action.RegisterAction" method="{1}">
+		 	<result name="test" type="redirect">/register.jsp</result>
+		 </action>
+		 
+		 <!-- 新的视频直播以及连麦的内容 -->
+		 <action name="pushURL" class="com.saas.action.CreatPushURL" method="pushURL">
+		 	<!-- <result name="success" >/success.jsp</result> -->
+		 </action>
+		 
+		 <action name="creatVideoRoom" class="com.saas.action.CreatRoom" method="creatVideoRoom"></action>
+		 
+		 <action name="showAllStream" class="com.saas.action.ShowStream" method="showAllStream"></action>
+		 
+		 <action name="liveAddress" class="com.saas.action.ZhiBoURL" method="liveAddress"></action>
+	</package>
+</struts>

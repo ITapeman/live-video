@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+	"-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+	"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="com.saas.pojo">
+
+	<class name="Garden_Category" table="t_garden_category">
+		<id name="gcid">
+			<generator class="native"/>
+		</id>
+		<property name="category"/>
+		
+		<!-- 每个分类有多个帖子 -->
+		<set name="gardens">
+			<key column="cateid"/>
+			<one-to-many class="Garden"/>
+		</set>	
+	</class>
+</hibernate-mapping>

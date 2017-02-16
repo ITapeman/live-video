@@ -1,0 +1,25 @@
+<!DOCTYPE hibernate-configuration PUBLIC
+	"-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+	"http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
+	
+
+<hibernate-configuration>
+	<session-factory>
+	<property name="connection.driver_class">com.mysql.jdbc.Driver</property>
+		<property name="connection.url">jdbc:mysql://localhost:3306/testdb</property>
+		<property name="connection.username">root</property>
+		<property name="connection.password">123456</property>
+		<property name="format_sql">false</property>
+		<property name="show_sql">true</property>
+		<property name="dialect">org.hibernate.dialect.MySQLDialect</property>
+		
+		<!-- 映射文件pojo里面对应的映射文件 -->
+		<mapping resource="com/saas/pojo/User.hbm.xml"/>
+		<mapping resource="com/saas/pojo/UserTag.hbm.xml"/>
+		<mapping resource="com/saas/pojo/Garden.hbm.xml"/>
+		<mapping resource="com/saas/pojo/Comment.hbm.xml"/>
+		<mapping resource="com/saas/pojo/Garden_Category.hbm.xml"/>
+		<mapping resource="com/saas/pojo/VideoPerSon.hbm.xml"/>
+		
+	</session-factory>
+</hibernate-configuration>

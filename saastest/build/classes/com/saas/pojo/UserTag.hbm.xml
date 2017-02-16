@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+	"-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+	"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="com.saas.pojo">
+
+	<class name="UserTag" table="t_usertag">
+		<id name="tid">
+			<generator class="native"/>
+		</id>
+		<property name="tag"/>
+		
+		<!-- 每个身份有多个用户 -->
+		<set name="user">
+			<key column="tid"/>
+			<one-to-many class="User"/>
+		</set>	
+		
+	</class>
+</hibernate-mapping>

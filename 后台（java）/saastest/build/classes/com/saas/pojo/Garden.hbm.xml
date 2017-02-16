@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+	"-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+	"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="com.saas.pojo">
+
+	<class name="Garden" table="t_garden">
+		<id name="gid">
+			<generator class="native"/>
+		</id>
+		<property name="title"/>
+		<property name="img"/>
+		<property name="content"/>
+		<property name="date"/>
+		<property name="hits"/>
+		<property name="allhits"/>
+		<property name="keyword"/>
+		
+		<!-- 用于收藏多对多 -->
+		<set name="cUsers" table="t_collection">
+			<key column="gid" />
+			<many-to-many class="User" column="uid" />
+		</set>
+		      
+		<!-- 发布园区信息者 -->
+		<many-to-one name="send_user" column="suid"></many-to-one>
+		
+		<!-- 园区（首页）评论 -->
+		<set name="comments" cascade="all">
+			<key column="ccid"/>
+			<one-to-many class="Comment"/>
+		</set>
+		<!-- 首页分类 -->
+		<many-to-one name="garden_Category" column="cateid"></many-to-one>
+	</class>
+</hibernate-mapping>
